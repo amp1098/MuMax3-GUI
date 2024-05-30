@@ -2,7 +2,7 @@ import numpy as np
 import os
 
 
-direct = os.path.dirname("C:/Users/physinst/Desktop/Mumax/MuMax3_Fall2023/disc.out/")
+direct = os.path.dirname("C:/Users/physinst/Desktop/Mumax/MuMax3_Fall2023/CoreTrackerSample.out/")
 
 # filenames = os.listdir(direct)
 #
@@ -90,12 +90,12 @@ class Ovf:
     def data_cache(self):
 
         files_size = len(Ovf(self.directory).data_find())
-        print(files_size)
         data_size = Ovf(self.directory).data_size_find()
 
-        ovf_array = np.full(shape=files_size, fill_value="0", dtype=object)
+        ovf_array = np.empty((files_size, data_size, 3), dtype=object)
 
         for file_number in range(files_size):
+            print(Ovf(self.directory).data_read(file_number))
             np.put(ovf_array, file_number, Ovf(self.directory).data_read(file_number))
 
         return ovf_array
@@ -103,4 +103,4 @@ class Ovf:
 
 thing = Ovf(direct).data_cache()
 
-print(np.max(thing))
+print(thing)
